@@ -39,7 +39,7 @@ function App() {
   }
 
   const submitLogout = async () => {
-    const 
+    const response = await fetch(`http://localhost:9897/logout`)
   }
 
   return (
