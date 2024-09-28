@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Grid, Card, CardContent, Typography, Button, CardActionArea } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 export const PlanSelection = () => {
   const classes = useStyles();
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const navigate = useNavigate();
 
   const plans = [
     { id: 1, title: 'Easy', description: 'This is the basic plan.' },
@@ -70,7 +72,8 @@ export const PlanSelection = () => {
         color="primary"
         className={classes.continueButton}
         disabled={selectedPlan === null}
-        onClick={() => alert(`Selected Plan: ${plans.find(plan => plan.id === selectedPlan).title}`)}
+        // onClick={() => alert(`Selected Plan: ${plans.find(plan => plan.id === selectedPlan).title}`)}
+        onClick={() => navigate('/home')}
       >
         Continue
       </Button>
