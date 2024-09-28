@@ -1,0 +1,67 @@
+@keyframes slideIn {
+    0% {
+      transform: translateX(-100%); /* Start off-screen to the left */
+      opacity: 0; /* Start invisible */
+    }
+    100% {
+      transform: translateX(0); /* End at original position */
+      opacity: 1; /* End fully visible */
+    }
+  }
+  
+
+.main-survey-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15;
+    margin-bottom: 2%;
+}
+
+.survey-header{
+    font-size: 200%;
+    font-weight: bold;
+    margin-bottom: 2%;
+    margin-top: 2%;
+
+}
+
+.head-survey-container{
+    margin-bottom: 1.5%;
+    width: 70%;
+
+}
+
+.head-survey-container p {
+    margin-bottom: 1%;
+    background-color: aqua;
+    padding: 1%;
+    border-radius: 10px;
+    transition: transform 0.5s ease; 
+    animation: slideIn 1.5s ease forwards;
+    
+}
+
+.survey-option{
+    
+    align-items: center;
+    text-justify: center;
+    justify-self: center;
+
+    transition: transform 0.5s ease; 
+    animation: slideIn 1.5s ease forwards;
+}
+
+.submit-button {
+    font-size: 17px;
+    background-color: aqua;
+    padding: 6px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 10px;
+}
+
+.submit-button:hover {
+    box-shadow: 0 5px #222222;
+    transform: translateY(4px);
+}

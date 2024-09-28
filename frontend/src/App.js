@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Home } from "./Home";
-import { GoalSetting } from "./GoalSetting";
-import { PlanSelection } from "./PlanSelection";
-import {Login} from './Login';
-import {Signup} from './Signup'
-import {Survey} from './Survey'
+import { Home } from "./components/Home";
+import { Assessment } from "./components/Assessment";
+import { GoalSetting } from "./components/GoalSetting";
+import { PlanSelection } from "./components/PlanSelection";
+import {LoginSignup} from './components/LoginSignup';
+import {Survey} from './components/Survey'
+// import { Login } from "./Login";
 
 function App() {
 
@@ -14,8 +15,8 @@ function App() {
         {/* Define your routes here */}
         <Route path="/survey" element={<Survey />} />
         <Route path="/home" element={<Home />} />
-         <Route path= "/login" element={<Login />}/> 
-         <Route path="/signup" element={<Signup />}/>
+         <Route path= "/signup" element={<LoginSignup />}/> 
+        <Route path="/assessment" element={<Assessment />} />
         <Route path="/goal-setting" element={<GoalSetting />} />
         <Route path="/plan" element={<PlanSelection />} />
       </Routes>
