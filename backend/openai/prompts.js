@@ -27,7 +27,21 @@ function generatePlanPrompt(request, behavior) {
     return prompt
 }
 
+function improvePlanPrompt(reflections) {
+    const prompt = `
+    The user has been working on breaking a bad habit. Here are their daily reflections:
+    ${reflections.map((r, idx) => `Day ${idx + 1}: ${r}`).join('\n')}
+
+    Based on these reflections, suggest how their plan can be improved. Provide more personalized and adaptive suggestions based on their self-reflections.
+
+    Please return the plans in JSON format 
+  `;
+
+  return prompt;
+}
+
 module.exports = {
     generatePlanPrompt,
+    improvePlanPrompt,
 };
   
