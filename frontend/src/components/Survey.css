@@ -47,6 +47,21 @@
     align-items: center;
     text-justify: center;
     justify-self: center;
+
     transition: transform 0.5s ease; 
     animation: slideIn 1.5s ease forwards;
+}
+
+.submit-button {
+    font-size: 17px;
+    background-color: aqua;
+    padding: 6px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 10px;
+}
+
+.submit-button:hover {
+    box-shadow: 0 5px #222222;
+    transform: translateY(4px);
 }
