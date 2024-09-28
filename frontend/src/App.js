@@ -5,6 +5,7 @@ import { GoalSetting } from "./GoalSetting";
 import { PlanSelection } from "./PlanSelection";
 import {Login} from './Login';
 import {Signup} from './Signup'
+import {Survey} from './Survey'
 // import { Login } from "./Login";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <Router>
       <Routes>
         {/* Define your routes here */}
+        <Route path="/survey" element={<Survey />} />
         <Route path="/home" element={<Home />} />
          <Route path= "/login" element={<Login />}/> 
          <Route path="/signup" element={<Signup />}/>
