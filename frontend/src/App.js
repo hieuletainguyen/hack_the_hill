@@ -3,6 +3,8 @@ import { Home } from "./Home";
 import { Assessment } from "./Assessment";
 import { GoalSetting } from "./GoalSetting";
 import { PlanSelection } from "./PlanSelection";
+import {Login} from './Login';
+import {Signup} from './Signup'
 // import { Login } from "./Login";
 
 function App() {

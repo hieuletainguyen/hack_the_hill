@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-function Signup() {
+export const Signup =() => {
 
     return (
         <Box sx={{ flexGrow: 1, padding: 2 }}>
@@ -56,5 +56,4 @@ function Signup() {
     );
 }
 
-export default Signup;
 

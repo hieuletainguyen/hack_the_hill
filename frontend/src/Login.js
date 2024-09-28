@@ -6,11 +6,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-function SignIn() {
+export const Login = () => {
    const navigate = useNavigate(); 
 
    const handleSignUp = () => {
-       navigate('/Signup'); 
+       navigate('/signup'); 
    };
     return (
         <Box sx={{ flexGrow: 1, padding: 2 }}>
@@ -64,5 +64,5 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+
 
