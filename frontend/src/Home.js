@@ -1,5 +1,5 @@
 import { Calendar, Text, Badge, HStack, VStack, Divider, Tag, Input, Button } from 'rsuite';
-import { HolidayUtil, Lunar } from 'lunar-typescript';
+import { HolidayUtil } from 'lunar-typescript';
 import { Radio, RadioGroup } from 'rsuite';
 import { useState } from 'react';
 import 'rsuite/dist/rsuite.min.css';
@@ -86,10 +86,20 @@ export const Home = () => {
 function Reflexion({ date }) {
 
     const [completed, setCompleted] = useState(false);
-
+    const [option, setOption] = useState("A");
 
   return (
     <VStack spacing={10}>
+
+        <RadioGroup 
+            name="radio-group-inline-picker" 
+            inline appearance="picker" 
+            defaultValue={option}
+            onChange={value => setOption(value)}
+        >
+            <Radio value="A">Challenge</Radio>
+            <Radio value="B">Timeline</Radio>
+        </RadioGroup>
 
         {/* if challenge not completed, ask to complete, if completed, ask for reflextion */}
         {!completed ? 
