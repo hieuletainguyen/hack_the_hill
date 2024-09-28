@@ -10,7 +10,7 @@ dotenv.config();
 
 const AWS = require("aws-sdk");
 
-AWS.config.update({ region: process.env.REGION})
+AWS.config.update({ region: "us-east-2"})
 
 
 const addAccount = async (req, res) => {
@@ -23,35 +23,22 @@ const addAccount = async (req, res) => {
     const { email, password } = req.body;
     try {
         const params = {
-            TableName: process.env.TABLE_SURVEY,
+            TableName: "hack_the_hill_accounts",
             Key: {
-                name: email
+                name: {S: email}
             }
         }
-
-        const checkIfExists = async () => {
-            try {
-              const data = await dynamoDB.get(params).promise();
-              
-              if (data.Item) {
-                console.log('Item exists:', data.Item);
-                return true;
-              } else {
-                console.log('Item does not exist.');
-                return false;
-              }
-            } catch (error) {
-              console.error('Error querying DynamoDB:', error);
-              return false;
-            }
-        };
         
-        if (!checkIfExists) {
+        dynamoDB.getItem(params, async (err, data) => {
+            if (err) {
+                console.log("Error", err)
+            } 
+
             const salt = await generate_salt()
             const hashPassword = await bcrypt.hash(password, salt);
 
             var addingParams = {
-                TableName: process.env.TABLE_SURVEY,
+                TableName: "hack_the_hill_accounts",
                 Item: {
                     name: { S: email },
                     password: {S: hashPassword}
@@ -60,16 +47,16 @@ const addAccount = async (req, res) => {
 
             dynamoDB.putItem(addingParams, (err, data) => {
                 if (err) {
-                    res.json({message: err})
+                    return res.json({message: "Error during adding"})
                 } else {
-                    res.status(200).json({ message: data})
+                    return res.status(200).json({ message: "add succesfully"})
                 }
             })
-
-        }
+            
+        })
         
     } catch(error) {
-
+        res.json({message: "Error during adding"})
     }
 }
 
@@ -77,34 +64,31 @@ const authorization = async (req, res) => {
     const { email, password } = req.body;
 
     const params = {
-        TableName: process.env.TABLE_SURVEY,
+        TableName: "hack_the_hill_accounts",
         Key: {
-            KEY_NAME: { S: email}
+            name: { S: email}
         }, 
         ProjectionExpression: "password"
     };
 
     dynamoDB.getItem(params, async (err, data) => {
         if (err) {
-            res.json({message: err});
-        } else {
-            if (data.length === 0) {
-                return res.status(401).json({message: "Invalid email or password"})
-            } else {
-                const hashedPassword = data.Item.password;
-                const match = await bcrypt.compare(password, hashedPassword);
+            return res.json({message: err});
+        } 
 
-                if (match) {
-                    const token = jwt.sign({email: email}, jwtSecretkey, {expiresIn: "1h"});
-                    res.cookie("TOKENS", token)
-                    return res.status(200).json({ message: "success"})
-                } else {
-                    return res.status(401).json({message: "Invalid email or password"})
-                }
-
-
-            }
+        if (Object.keys(data).length === 0) {
+            return res.status(401).json({message: "Invalid email or password"})
         }
+        const hashedPassword = data.Item.password.S;
+        const match = await bcrypt.compare(password, hashedPassword);
+
+        if (match) {
+            const token = jwt.sign({email: email}, jwtSecretkey, {expiresIn: "1h"});
+            return res.status(200).json({message: "success", token: token})
+        } else {
+            return res.status(401).json({message: "Invalid email or password"})
+        }
+
     })
     
 }
