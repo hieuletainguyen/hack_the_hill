@@ -1,14 +1,24 @@
-
-import React from 'react';//import {useState} from "react";
-import Login from './Login';
-import Signup from './Signup'
+import {useState} from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Home } from "./Home";
+import { Assessment } from "./Assessment";
+import { GoalSetting } from "./GoalSetting";
+import { PlanSelection } from "./PlanSelection";
+// import { Login } from "./Login";
 
 function App() {
 
   return (
-    <div>
-       <Login />
-    </div>
+    <Router>
+      <Routes>
+        {/* Define your routes here */}
+        <Route path="/" element={<Home />} />
+        {/* <Route path "/login" element={<Login />} /> */}
+        <Route path="/assessment" element={<Assessment />} />
+        <Route path="/goal-setting" element={<GoalSetting />} />
+        <Route path="/plan" element={<PlanSelection />} />
+      </Routes>
+    </Router>
   );
 }
 
