@@ -23,7 +23,7 @@ const addAccount = async (req, res) => {
     const { email, password } = req.body;
     try {
         const params = {
-            TableName: process.env.TABLE_NAME,
+            TableName: process.env.TABLE_SURVEY,
             Key: {
                 name: email
             }
@@ -51,7 +51,7 @@ const addAccount = async (req, res) => {
             const hashPassword = await bcrypt.hash(password, salt);
 
             var addingParams = {
-                TableName: process.env.TABLE_NAME,
+                TableName: process.env.TABLE_SURVEY,
                 Item: {
                     name: { S: email },
                     password: {S: hashPassword}
@@ -77,7 +77,7 @@ const authorization = async (req, res) => {
     const { email, password } = req.body;
 
     const params = {
-        TableName: process.env.TABLE_NAME,
+        TableName: process.env.TABLE_SURVEY,
         Key: {
             KEY_NAME: { S: email}
         }, 
