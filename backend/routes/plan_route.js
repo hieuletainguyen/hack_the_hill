@@ -1,6 +1,6 @@
 const express = require("express");
 const router = new express.Router();
-const plan = require("../controllers/plam")
+const plan = require("../controllers/plan")
 const {body} = require("express-validator")
 
 

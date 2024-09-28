@@ -6,8 +6,8 @@ const app = express();
 const port = 9897;
 
 const account_routes = require("./routes/account_route");
-const survey_routes = require("./controllers/survey")
-const plan_routes = require("./controllers/plan")
+const survey_routes = require("./routes/survey_route")
+const plan_routes = require("./routes/plan_route")
 
 var corsOptions = {
   origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
