@@ -68,7 +68,7 @@ const authorization = async (req, res) => {
         Key: {
             name: { S: email}
         }, 
-        ProjectionExpression: "password"
+        
     };
 
     dynamoDB.getItem(params, async (err, data) => {
