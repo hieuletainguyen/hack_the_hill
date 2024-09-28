@@ -1,12 +1,12 @@
 const express = require("express");
 const router = new express.Router();
 const plan = require("../controllers/plan")
-const {body} = require("express-validator")
+const {query, body} = require("express-validator")
 
 
 router.get("/get-plans", 
-    body("email").isEmail(),
-    body('request').not().isEmpty(), 
+    query("email").isEmail(),
+    query('request').not().isEmpty(), 
     plan.getPlans
 )
 

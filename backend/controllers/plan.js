@@ -4,7 +4,7 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-2"})
 
 const getPlans = async (req, res) => {
-    const {email, request} = req.body;
+    const {email, request} = req.query;
 
     const params = {
         TableName: "hack_the_hill_survey",
