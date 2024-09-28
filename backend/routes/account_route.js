@@ -20,6 +20,8 @@ router.post("/logout",
     account.logout
 )
 
-
+router.post('/decode_token', 
+    account.decode_token
+)
 
 module.exports = router;

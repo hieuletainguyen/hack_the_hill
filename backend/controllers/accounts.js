@@ -84,6 +84,22 @@ const authorization = async (req, res) => {
 
         if (match) {
             const token = jwt.sign({email: email}, jwtSecretkey, {expiresIn: "1h"});
+            
+            var addingParams = {
+                TableName: "hack_the_hill_tokens",
+                Item: {
+                    token: { S: token },
+                    email: {S: email}
+                },
+            };
+
+            dynamoDB.putItem(addingParams, (err, data) => {
+                if (err) {
+                    return res.json({message: "Error during adding"})
+                } else {
+                    return res.status(200).json({ message: "add succesfully"})
+                }
+            })
             return res.status(200).json({message: "success", token: token})
         } else {
             return res.status(401).json({message: "Invalid email or password"})
@@ -94,14 +110,65 @@ const authorization = async (req, res) => {
 }
 
 const logout = (req, res) => {
-    res.clearCookie("TOKENS");
-    res.status(200).json({message: "Logged out successfully"})
+    const {token} = req.body;
+
+    console.log(token)
+
+    if (token){
+        const params = {
+            TableName: "hack_the_hill_tokens",
+            Key: {
+                token: {S: token}
+            }
+        };
+
+        dynamoDB.deleteItem(params, (err, data) => {
+            if (err) {
+                return res.status(400).json({message: err})
+            }
+            res.clearCookie("TOKENS");
+            return res.status(200).json({message: "success"})
+        })
+    }
+}
+
+const decode_token = (req, res) => {
+    const {token} = req.body;
+
+    if (token) {
+        jwt.verify(token, jwtSecretkey, (err, decoded) => {
+            if (err) {
+                return res.status(401).json({message: "Invalid token"})
+            } 
+
+            const params = {
+                TableName: "hack_the_hill_tokens",
+                Key: {
+                    token: { S: token}
+                }, 
+                ProjectionExpression: "email"
+            }
+
+            dynamoDB.getItem(params, async (err, data) => {
+                if (err) {
+                    return res.json({message: err});
+                } 
+
+                if (Object.keys(data).length === 1) {
+                    return res.status(200).json({ message: "success", email: decoded.email })
+                } else {
+                    return res.status(401).json({ message: "Invalid token"})
+                }
+            })
+        })
+    }
 }
 
 
 module.exports = {
     addAccount, 
     authorization, 
-    logout
+    logout, 
+    decode_token
 }
 
