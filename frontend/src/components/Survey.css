@@ -1,0 +1,36 @@
+.main-survey-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15;
+    margin-bottom: 2%;
+}
+
+.survey-header{
+    font-size: 200%;
+    font-weight: bold;
+    margin-bottom: 2%;
+    margin-top: 2%;
+
+}
+
+.head-survey-container{
+    margin-bottom: 1.5%;
+    width: 70%;
+
+}
+
+.head-survey-container p {
+    margin-bottom: 1%;
+    background-color: aqua;
+    padding: 1%;
+    border-radius: 10px;
+    
+}
+
+.survey-option{
+    
+    align-items: center;
+    text-justify: center;
+    justify-self: center;
+}

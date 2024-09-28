@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./Survey.css"
 
 export const Survey = () => {
   const questions = [
@@ -75,12 +76,16 @@ export const Survey = () => {
   };
 
   return (
-    <div>
+    <div className="main-survey-container">
+      <div className="survey-header">
+          SURVEY
+      </div>
+
       {questions.map((q, questionIndex) => (
-        <div key={questionIndex}>
+        <div key={questionIndex} className="head-survey-container">
           <p>{q.question}</p>
           {q.options.map((option, optionIndex) => (
-            <div key={optionIndex}>
+            <div key={optionIndex} className="survey-option">
               <input
                 type="radio"
                 name={`question${questionIndex}`}
