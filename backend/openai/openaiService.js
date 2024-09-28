@@ -2,6 +2,7 @@
 const OpenAI = require('openai')
 const dotenv = require("dotenv");
 const PromptGenerator = require("./prompts")
+const ErrorHandler = require("./errorHandler")
 
 dotenv.config();
 
@@ -30,6 +31,12 @@ async function generatePlan(request, behavior) {
         type: 'json_object',
       },
     });
+
+    const errorMessages = ErrorHandler.checkErrors(response);
+
+    if (errorMessages.length > 0) {
+     return; 
+    }
 
     // Extract the response
     const planString = response.choices[0].message.content;
