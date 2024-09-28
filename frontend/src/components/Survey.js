@@ -75,6 +75,27 @@ export const Survey = () => {
     }));
   };
 
+  const checkingAllQuestionAnswered = () => {
+    for (const key in selectedAnswer) {
+      if (selectedAnswer[key] === ''){
+        return true
+      }
+    }
+    return false
+  }
+
+  const handleSubmit = async () => {
+    const response = await fetch(`http://lcoalhost:9897/add-survey`, {
+      method: "POST", 
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(selectedAnswer)
+    })
+
+    const data = await response.json();
+
+    console.log(data);
+  }
+
   return (
     <div className="main-survey-container">
       <div className="survey-header">
@@ -93,11 +114,13 @@ export const Survey = () => {
                 checked={selectedAnswer[`answer${questionIndex + 1}`] === option}
                 onChange={() => handleOptionChange(questionIndex, option)}
               />
-              <label>{option}</label>
+              <label >{option}</label>
             </div>
           ))}
         </div>
       ))}
+
+      <button className="submit-button" onClick={handleSubmit} disabled={checkingAllQuestionAnswered()}>SUBMIT</button>
     </div>
   );
 };
