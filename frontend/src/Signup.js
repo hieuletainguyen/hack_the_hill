@@ -1,34 +1,29 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-function SignIn() {
-   const navigate = useNavigate(); 
+function Signup() {
 
-   const handleSignUp = () => {
-       navigate('/Signup'); 
-   };
     return (
         <Box sx={{ flexGrow: 1, padding: 2 }}>
             <Grid container spacing={2}>
                
-                <Grid item xs={12} md={6}>
-                    <Typography variant="h5" gutterBottom>
+            {/*    <Grid item xs={12} md={6}>
+                  {/*  <Typography variant="h5" gutterBottom>
                         Welcome Back!
                     </Typography>
                     <Typography variant="body1">
                         Please enter your credentials to access your account. 
                         If you don't have an account yet, consider signing up for new features and updates!
                     </Typography>
-                </Grid>
+                </Grid> */}
 
                 <Grid item xs={12} md={6}>
                     <Typography variant="h4" gutterBottom>
-                        Sign In
+                        Sign up 
                     </Typography>
                     <Box
                         component="form"
@@ -51,12 +46,9 @@ function SignIn() {
                             variant="standard"
                         />
                         <Button variant="contained" color="primary" type="submit">
-                            Sign In
+                            Sign Up
                         </Button>
 
-                       <Button variant="text" color="secondary" onClick={handleSignUp}>
-                            Don't have an account? Sign Up
-                        </Button>
                     </Box>
                 </Grid>
             </Grid>
@@ -64,5 +56,5 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+export default Signup;
 

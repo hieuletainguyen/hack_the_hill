@@ -1,26 +1,13 @@
-import {useState} from "react";
+
+import React from 'react';//import {useState} from "react";
+import Login from './Login';
+import Signup from './Signup'
 
 function App() {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const showPasswordClick = () => {
-    setShowPassword(!showPassword);
-  }
-  const submitClick = () => {
-    
-  }
 
   return (
     <div>
-      <div>
-        <label>Email Address</label>
-        <input type="text" />
-      </div>
-      <div>
-        <label>Password</label>
-        <input type="text"  /> 
-      </div>
-      <button>Submit</button>
+       <Login />
     </div>
   );
 }
