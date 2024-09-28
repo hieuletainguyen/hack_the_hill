@@ -85,7 +85,8 @@ export const Home = () => {
                 .bg-neon {background-color: white;}`
             }</style>
        
-            <VStack>
+            <VStack
+            >
                 <Calendar
                     bordered
                     renderCell={renderCell}
