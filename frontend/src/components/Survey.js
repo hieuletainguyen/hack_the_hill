@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./Survey.css"
 
 export const Survey = () => {
+
   const questions = [
     { 
       question: "How do you typically approach problem-solving or decision-making in your daily life or work?", 
@@ -68,7 +69,7 @@ export const Survey = () => {
     answer6: ''
   });
 
-  const handleOptionChange = (questionIndex, option) => {
+ const handleOptionChange = (questionIndex, option) => {
     setSelectedAnswer(prevState => ({
       ...prevState,
       [`answer${questionIndex + 1}`]: option
@@ -80,7 +81,6 @@ export const Survey = () => {
       <div className="survey-header">
           SURVEY
       </div>
-
       {questions.map((q, questionIndex) => (
         <div key={questionIndex} className="head-survey-container">
           <p>{q.question}</p>
@@ -94,7 +94,7 @@ export const Survey = () => {
                 onChange={() => handleOptionChange(questionIndex, option)}
               />
               <label>{option}</label>
-            </div>
+            </div>    
           ))}
         </div>
       ))}

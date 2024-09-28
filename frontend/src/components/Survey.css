@@ -1,3 +1,15 @@
+@keyframes slideIn {
+    0% {
+      transform: translateX(-100%); /* Start off-screen to the left */
+      opacity: 0; /* Start invisible */
+    }
+    100% {
+      transform: translateX(0); /* End at original position */
+      opacity: 1; /* End fully visible */
+    }
+  }
+  
+
 .main-survey-container {
     display: flex;
     flex-direction: column;
@@ -25,6 +37,8 @@
     background-color: aqua;
     padding: 1%;
     border-radius: 10px;
+    transition: transform 0.5s ease; 
+    animation: slideIn 1.5s ease forwards;
     
 }
 
@@ -33,4 +47,6 @@
     align-items: center;
     text-justify: center;
     justify-self: center;
+    transition: transform 0.5s ease; 
+    animation: slideIn 1.5s ease forwards;
 }
