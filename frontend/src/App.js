@@ -15,7 +15,7 @@ function App() {
         {/* Define your routes here */}
         <Route path="/home" element={<Home />} />
          <Route path= "/login" element={<Login />}/> 
-         <Route path "/signup" element={<Signup />}/>
+         <Route path="/signup" element={<Signup />}/>
         <Route path="/assessment" element={<Assessment />} />
         <Route path="/goal-setting" element={<GoalSetting />} />
         <Route path="/plan" element={<PlanSelection />} />
