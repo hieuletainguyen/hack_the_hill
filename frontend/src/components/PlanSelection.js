@@ -46,8 +46,7 @@ export const PlanSelection = (props) => {
 
     axios.get("/get-plans", {
       params: {
-        email: 'user@example.com', // Update email if necessary
-        request: 'plan_selection'
+        email: username, 
       }
     })
     .then((response) => {
@@ -68,9 +67,9 @@ export const PlanSelection = (props) => {
       
       // Send chosen plan to the backend
       axios.post("/chosen-plan", {
-        email: 'user@example.com', // Update email if necessary
+        email: username, // Update email if necessary
         plan: chosenPlan.title,
-        request: 'plan_selection'
+        description: chosenPlan.description
       })
       .then((response) => {
         alert(`Plan chosen: ${chosenPlan.title}`);

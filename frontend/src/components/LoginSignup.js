@@ -32,6 +32,7 @@ export const LoginSignup = (props) => {
       })
 
       Cookies.set("TOKENS", data.token, {expires: 1});
+      console.log(data)
       if (Object.keys(data.data) === 0){
         navigate("/survey")
       } else {
@@ -53,7 +54,7 @@ export const LoginSignup = (props) => {
       alert("Both your password are not correct")
       return -1
     }
-    const response = await fetch(`http:localhost:9897/add-account`, {
+    const response = await fetch(`http://localhost:9897/add-account`, {
       method: "POST", 
       headers: {"Content-Type": "application/json"}, 
       body: JSON.stringify({
@@ -64,6 +65,9 @@ export const LoginSignup = (props) => {
 
     const data = await response.json();
     console.log(data);
+    if (data.message === "add successfully"){
+      navigate('/signup')
+    }
 
   }
 
@@ -132,7 +136,7 @@ export const LoginSignup = (props) => {
               </Typography>
               <TextField label="Email" variant="outlined" fullWidth margin="normal" onChange={(e) => setEmail(e.target.value)} />
               <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" onChange={(e) => setPassword(e.target.value)}/>
-              <Button variant="contained" color="primary" fullWidth>
+              <Button variant="contained" color="primary" fullWidth onClick={handleSignIn}>
                 Sign In
               </Button>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
@@ -162,7 +166,7 @@ export const LoginSignup = (props) => {
               <TextField label="Email" variant="outlined" fullWidth margin="normal" onChange={(e) => setEmail(e.target.value)} />
               <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" onChange={(e) => setPassword1(e.target.value)}/>
               <TextField label="Confirm Password" type="password" variant="outlined" fullWidth margin="normal" onChange={(e) => setPassword2(e.target.value)}/>
-              <Button variant="contained" color="primary" fullWidth>
+              <Button variant="contained" color="primary" fullWidth onClick={handleSignUp}>
                 Sign Up
               </Button>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
