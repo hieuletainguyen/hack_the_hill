@@ -1,64 +1,10 @@
 import React, { useState } from 'react';
-import "./Survey.css"
+import "./Survey.css";
+import questions from './helpers/SurveyQuestions';
+import axios from '../axios'
 
 export const Survey = () => {
-  const questions = [
-    { 
-      question: "How do you typically approach problem-solving or decision-making in your daily life or work?", 
-      options: [
-        "I rely on intuition and experience.",
-        "I gather all the relevant information before making a decision.",
-        "I consult others for advice or input.",
-        "I prefer to take risks and experiment with new solutions."
-      ]
-    },
-    { 
-      question: "When encountering a new technology or tool, how do you prefer to learn about it—through hands-on experience, reading, or tutorials?", 
-      options: [
-        "Hands-on experimentation.",
-        "Reading documentation or articles.",
-        "Watching tutorials or videos.",
-        "Learning through discussion with peers."
-      ]
-    },
-    { 
-      question: "What motivates you to engage with or return to a product or service consistently?", 
-      options: [
-        "Ease of use and efficiency.",
-        "High-quality design and aesthetics.",
-        "Personalization and customization options.",
-        "Consistent updates and new features."
-      ]
-    },
-    {
-      question: "How do you handle feedback, both positive and negative, in personal or professional settings?",
-      options: [
-        "I appreciate and act on feedback, regardless of type.",
-        "I value positive feedback but struggle with negative feedback.",
-        "I reflect on feedback but don’t always act on it.",
-        "I tend to dismiss feedback unless it aligns with my perspective."
-      ]
-    }, 
-    {
-      question: "What role does routine play in your life—do you prefer structured schedules or a more flexible approach to tasks?", 
-      options: [
-        "I prefer a strict, structured routine.",
-        "I like some structure, but flexibility is important.",
-        "I work best with complete flexibility and spontaneity.",
-        "I follow a routine only when necessary."
-      ]
-    },
-    {
-      question: "How do you balance creativity with practicality when working on projects or making choices?",
-      options: [
-        "I prioritize practicality over creativity.",
-        "I prefer creative solutions even if they are less practical.",
-        "I balance both equally depending on the situation.",
-        "I let the project’s goals dictate whether I lean toward creativity or practicality."
-      ]
-    }
-  ];
-
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState({
     answer1: '', 
     answer2: '',
@@ -68,59 +14,95 @@ export const Survey = () => {
     answer6: ''
   });
 
+  // Handle option selection for checkboxes (only one selected allowed)
   const handleOptionChange = (questionIndex, option) => {
     setSelectedAnswer(prevState => ({
       ...prevState,
-      [`answer${questionIndex + 1}`]: option
+      [`answer${questionIndex + 1}`]: prevState[`answer${questionIndex + 1}`] === option ? '' : option
     }));
   };
 
+  // Check if all questions are answered
   const checkingAllQuestionAnswered = () => {
     for (const key in selectedAnswer) {
-      if (selectedAnswer[key] === ''){
-        return true
+      if (selectedAnswer[key] === '') {
+        return true;
       }
     }
-    return false
-  }
+    return false;
+  };
 
-  const handleSubmit = async () => {
-    const response = await fetch(`http://lcoalhost:9897/add-survey`, {
-      method: "POST", 
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(selectedAnswer)
+  const handleSubmit = () => {
+    axios.post('/add-survey', selectedAnswer)
+    .then((response) => {
+      console.log(response.data); // Handle the response data
     })
-
-    const data = await response.json();
-
-    console.log(data);
-  }
+    .catch((error) => {
+      console.error('Error submitting survey:', error); // Handle any error
+    });
+  };
 
   return (
     <div className="main-survey-container">
       <div className="survey-header">
-          SURVEY
+        <h2>Survey</h2>
+        <p>Please answer the questions one at a time.</p>
       </div>
 
-      {questions.map((q, questionIndex) => (
-        <div key={questionIndex} className="head-survey-container">
-          <p>{q.question}</p>
-          {q.options.map((option, optionIndex) => (
+      {/* Display only the current question with animation */}
+      <div className="question-container">
+        <p className="question-title">{questions[currentQuestionIndex].question}</p>
+        <div className="options-container">
+          {questions[currentQuestionIndex].options.map((option, optionIndex) => (
             <div key={optionIndex} className="survey-option">
               <input
-                type="radio"
-                name={`question${questionIndex}`}
+                type="checkbox"
+                name={`question${currentQuestionIndex}`}
                 value={option}
-                checked={selectedAnswer[`answer${questionIndex + 1}`] === option}
-                onChange={() => handleOptionChange(questionIndex, option)}
+                checked={selectedAnswer[`answer${currentQuestionIndex + 1}`] === option}
+                onChange={() => handleOptionChange(currentQuestionIndex, option)}
               />
-              <label >{option}</label>
+              <label className="option-label">{option}</label>
             </div>
           ))}
         </div>
-      ))}
+      </div>
 
-      <button className="submit-button" onClick={handleSubmit} disabled={checkingAllQuestionAnswered()}>SUBMIT</button>
+      {/* Navigation Buttons */}
+      <div className="navigation-buttons">
+        <button
+          className="nav-button"
+          onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
+          disabled={currentQuestionIndex === 0}
+        >
+          Previous
+        </button>
+
+        <button
+        className="submit-button"
+        onClick={handleSubmit}
+      >
+        Submit
+      </button>
+
+        {currentQuestionIndex < questions.length - 1 ? (
+          <button
+            className="nav-button"
+            onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
+            disabled={!selectedAnswer[`answer${currentQuestionIndex + 1}`]}
+          >
+            Next
+          </button>
+        ) : (
+          <button
+            className="submit-button"
+            onClick={handleSubmit}
+            disabled={checkingAllQuestionAnswered()}
+          >
+            Submit
+          </button>
+        )}
+      </div>
     </div>
   );
 };
