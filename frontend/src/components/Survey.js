@@ -55,7 +55,7 @@ export const Survey = (props) => {
     <div className="main-survey-container">
     <Zoom in timeout={600}>
       <div className="survey-header">
-        <h2>Survey</h2>
+        <h2>Tell us about yourself...</h2>
         <p>Please answer the questions one at a time.</p>
       </div>
     </Zoom>
