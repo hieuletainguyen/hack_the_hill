@@ -185,10 +185,13 @@ function Reflexion({ date }) {
                 >
                     <Text size="xxl">For Today...</Text>
                     <Text size="xl">Run 10K at a 6:00 min/km pace</Text>
-                    <Text wrap>To run a 10K at a 6:00 min/km pace, start with a proper warm-up, including light jogging and dynamic stretches. During the run, keep a steady pace, using a running app or watch to monitor your splits. Focus on consistent breathing and form, avoiding early fatigue by not starting too fast. </Text>
+                    <Text wrap>To run a 10K at a 6:00 min/km pace, start with a proper warm-up, including light jogging and dynamic
+                         stretches. During the run, keep a steady pace, using a running app or watch to monitor your splits. Focus
+                          on consistent breathing and form, avoiding early fatigue by not starting too fast. </Text>
 
                     <Text size="xxl">Things to keep in mind...</Text>
-                    <Text wrap>Hydrate before the run, and use mental cues to stay focused, especially in the last kilometers. Finish with a cool-down and some light stretching.</Text>
+                    <Text wrap>Hydrate before the run, and use mental cues to stay focused, especially in the last kilometers. Finish 
+                        with a cool-down and some light stretching.</Text>
                     <Button
                         style={{
                             color: "white", 
