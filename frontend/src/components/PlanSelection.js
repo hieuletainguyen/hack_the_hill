@@ -1,32 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Card, CardContent, Typography, Button, CardActionArea } from '@mui/material';
+import React, { useState, useEffect } from 'react'; 
+import { Grid, Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import axios from './axios';
+import { plans as samplePlans } from './helpers/SampleObjects';
+import PlanItem from './PlanSelectionItem'; // Import the PlanItem component
 import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-
   root: {
     display: 'flex',
     flexDirection: 'column',
-    justifyItems: 'center',
-    alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f4f6f9',
+    padding: theme.spacing(4),
   },
   cardContainer: {
-    width: '100%', // Takes 70% of the width
+    width: '90%',
     display: 'flex',
-    justifyContent: 'space-around', // Space around the cards
-  },
-  card: {
-    width: '80%', // Each card takes 30% of the container width
-    height: '70vh', // Card height is 70% of viewport height
-    border: '2px solid transparent',
-    '&.selected': {
-      border: `2px solid ${theme.palette.primary.main}`, // Border when selected
-    },
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    marginTop: theme.spacing(2),
   },
   continueButton: {
     marginTop: theme.spacing(3),
+    padding: theme.spacing(1.5),
+    width: '30%',
+    fontWeight: 'bold',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
+  title: {
+    fontWeight: 'bold',
+    color: theme.palette.primary.main,
+    marginBottom: theme.spacing(2),
+  },
+  description: {
+    textAlign: 'center',
+    maxWidth: '80%',
+    color: theme.palette.text.secondary,
+    marginBottom: theme.spacing(3),
   },
 }));
 
@@ -34,31 +48,26 @@ export const PlanSelection = (props) => {
   const {login, username} = props.status;
   const classes = useStyles();
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [plans, setPlans] = useState({});
+  const [plans, setPlans] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch available plans from the backend
   useEffect(() => {
-    // Hard-coding Testing
-    // setPlans([
-    //   { id: 1, title: 'Easy', description: 'This is the basic plan.' },
-    //   { id: 2, title: 'Medium', description: 'This is the standard plan.' },
-    //   { id: 3, title: 'Hard', description: 'This is the premium plan.' },
-    // ])
-    const get_plans = async () => {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:9897"}/get-plans?email=${username}`)
-
-      const data = await response.json();
-      console.log(data)
-      console.log(data.result)
-      setPlans(data.result);
-
-    }
-
-    get_plans();
-    
-
-  }, []);
+    axios.get("/get-plans", {
+      params: {
+        email: username, // Assuming username is available
+      }
+    })
+    .then((response) => {
+      const data = response.data;
+      console.log(data);
+      setPlans(data.result); // Assuming `data.result` contains the list of plans
+    })
+    .catch((error) => {
+      console.error("Error fetching plans:", error);
+    });
+  }, [username]);
+  
+  
 
   const handleSelectPlan = (id) => {
     setSelectedPlan(id);
@@ -87,24 +96,24 @@ export const PlanSelection = (props) => {
 
   return (
     <div className={classes.root}>
+      <Typography variant="h4" className={classes.title}>
+        Choose Your Quitting Plan
+      </Typography>
+      <Typography variant="body1" className={classes.description}>
+        Choose a plan that fits your journey to break a habit. The 
+        <strong> Easy</strong> plan offers gradual change, 
+        <strong> Medium</strong> provides a balanced approach, and 
+        <strong> Hard</strong> is for those seeking immediate action.
+      </Typography>
+      
       <Grid container className={classes.cardContainer}>
-        {Object.keys(plans).length > 0 && Object.values(plans).map((plan, index) => (
-          <Grid item key={index}>
-            <Card
-              className={`${classes.card} ${selectedPlan === plan.goal ? 'selected' : ''}`}
-              onClick={() => handleSelectPlan(plan.goal)}
-            >
-              <CardActionArea>
-                <CardContent>
-                  <Typography variant="h5" component="div" gutterBottom>
-                    {plan.goal}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {plan.description}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+        {plans.map((plan) => (
+          <Grid item key={plan.id}>
+            <PlanItem
+              plan={plan}
+              selectedPlan={selectedPlan}
+              handleSelectPlan={handleSelectPlan}
+            />
           </Grid>
         ))}
       </Grid>

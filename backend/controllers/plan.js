@@ -31,7 +31,7 @@ const getPlans = async (req, res) => {
             }
             const result = await generatePlan(data1.Item.S, data.Item)
             
-            return res.json({message: "success", result: result});
+            return res.json({message: "success", plans: result.plans});
 
         })
     })

@@ -11,83 +11,179 @@
   
 
 .main-survey-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #e0f7fa, #ffccbc); /* Soft gradient background */
+    border-radius: 12px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.5s ease;
+  }
+  
+  /* Survey Header */
+  .survey-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .survey-header h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .survey-header p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Question Container */
+  .question-container {
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Animation for sliding */
+  @keyframes slide-in-left {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-out-left {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes slide-in-right {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-out-right {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+  
+  /* Apply animations */
+  .slide-in-left {
+    animation: slide-in-left 0.3s ease-in-out;
+  }
+  
+  .slide-out-left {
+    animation: slide-out-left 0.3s ease-in-out;
+  }
+  
+  .slide-in-right {
+    animation: slide-in-right 0.3s ease-in-out;
+  }
+  
+  .slide-out-right {
+    animation: slide-out-right 0.3s ease-in-out;
+  }
+  
+  /* Options Container */
+  .options-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border-radius: 15;
-    margin-bottom: 2%;
-}
-
-.survey-header{
-    font-size: 200%;
-    font-weight: bold;
-    margin-bottom: 2%;
-    margin-top: 2%;
-
-}
-
-.head-survey-container {
-    margin-bottom: 1.5%;
-    width: 70%;
-    
-
-}
-
-.head-survey-container p {
-    margin-bottom: 1%;
-    background-color:#e3f2fd;
-    padding: 1%;
-    border-radius: 10px;
-    transition: transform 0.5s ease; 
-    animation: slideIn 1.5s ease forwards;
-    
-}
-
-.survey-option{
-    
-    align-items: center;
-    text-justify: center;
-    justify-self: center;
-    transition: transform 0.5s ease; 
-    animation: slideIn 1.5s ease forwards;
-}
-
-.submit-button {
-    font-size: 20px;
-    background-color: #cdeaff;
-    padding: 6px;
-    padding-left: 14px;
-    padding-right: 14px;
-    border-radius: 10px;
-    
-}
-
-.submit-button:hover {
-    box-shadow: 0 4px #373737;
-    transform: translateY(4px);
-}
-
-.zoom {
-    transition: color 0.3s ease, 
-    transform 0.3s ease; /* Smooth transition for color and scale */
   }
   
-  .zoom:hover {
-    color: #3f51b5; /* Change color on hover (example color) */
-    height: 5vh;
-    transform: scale(1.5); /* Slightly enlarge the text on hover */
-    cursor: pointer; /* Change cursor to pointer */
-  }
-  .survey-box {
-    width: 800px;
-    margin: 10px auto;
-    background-color: #f5f5f5; /* Grey background */
-    border-radius: 10px; /* Rounded corners */
-    padding: 20px; /* Space inside the box */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Drop shadow */
-    transition: transform 0.3s; /* Smooth transition for zoom effect */
+  /* Option */
+  .survey-option {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
   }
   
-  .survey-box:hover {
-    transform: scale(1.02); /* Zoom effect on hover */
+  .survey-option input {
+    margin-right: 10px;
   }
+  
+  .option-label {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  /* Navigation Buttons */
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .nav-button, .submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .nav-button:hover, .submit-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); /* Lift effect on hover */
+  }
+  
+  .nav-button:disabled, .submit-button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
+  }
+  
+  /* Background color shift for different question pages */
+  .page-1 {
+    background: linear-gradient(135deg, #FFDEE9, #B5FFFC); /* Light pink to cyan */
+  }
+  
+  .page-2 {
+    background: linear-gradient(135deg, #C9FFBF, #FFAFBD); /* Light green to pink */
+  }
+  
+  .page-3 {
+    background: linear-gradient(135deg, #fce38a, #f38181); /* Soft yellow to pink */
+  }
+  
+  .page-4 {
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb); /* Light violet to pink */
+  }
+  
+  .page-5 {
+    background: linear-gradient(135deg, #fad0c4, #ffd1ff); /* Peach to lavender */
+  }
+  
+  .page-6 {
+    background: linear-gradient(135deg, #84fab0, #8fd3f4); /* Green to blue */
+  }
+  
