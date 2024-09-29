@@ -89,12 +89,13 @@ Data Storage: All user data (survey responses, calendar events) is securely stor
 ## 🔥**Screenshots**
 
 ### Sign in / Sign up Page
+![Screenshot 2024-09-29 084635](https://github.com/user-attachments/assets/d67aeee3-e7aa-4bf5-965c-f4b655c60f99)
 
 ### Survey Page
-![Screenshot 2024-09-29 032753](https://github.com/user-attachments/assets/e71dd9ca-142e-491a-ad3d-5486d8df2c75)
+![Screenshot 2024-09-29 084656](https://github.com/user-attachments/assets/81b566ba-5cf8-4acd-981a-7e0f22a1f522)
 
 ### Plan choosing Page
-![Screenshot 2024-09-29 032815](https://github.com/user-attachments/assets/c7eac146-ad7f-4a79-8242-28ea80235fe2)
+![Screenshot 2024-09-29 083900](https://github.com/user-attachments/assets/b6ffee36-fd19-4b7a-9888-889de88ec54d)
 
 ### Home Page
 ![Screenshot 2024-09-29 032955](https://github.com/user-attachments/assets/2d1c454f-daf6-49d9-b8f8-2763ed15006f)
