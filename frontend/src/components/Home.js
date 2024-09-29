@@ -295,14 +295,27 @@ function Reflexion({ date }) {
             <ButtonGroup
                 size="large"
                 variant="outlined"
-                fullWidth
-                style={{ width: '100%', justifyContent: 'space-between' }} // Spread buttons evenly
+                aria-label="emoji button group"
+                style={{ width: '100%', justifyContent: 'space-between' }}
             >
-                <Button value="A" style={{ flexGrow: 1, fontSize: '2rem', padding: 15, margin: 8 }}>😁</Button>
-                <Button value="B" style={{ flexGrow: 1, fontSize: '2rem', padding: 15, margin: 8 }}>😊</Button>
-                <Button value="C" style={{ flexGrow: 1, fontSize: '2rem', padding: 15, margin: 8 }}>😐</Button>
-                <Button value="D" style={{ flexGrow: 1, fontSize: '2rem', padding: 15, margin: 8 }}>😩</Button>
+            <Button value="A" style={{ flexGrow: 1, flexDirection: 'column', fontSize: '2rem', marginLeft: 5, marginRight: 5, paddingTop: 20, paddingBottom: 20 }}>
+                😁
+                <span style={{ fontSize: '1rem' }}>Happy</span>
+            </Button>
+            <Button value="B" style={{ flexGrow: 1, flexDirection: 'column', fontSize: '2rem', marginLeft: 5, marginRight: 5, paddingTop: 20, paddingBottom: 20 }}>
+                😊
+                <span style={{ fontSize: '1rem' }}>Content</span>
+            </Button>
+            <Button value="C" style={{ flexGrow: 1, flexDirection: 'column', fontSize: '2rem', marginLeft: 5, marginRight: 5, paddingTop: 20, paddingBottom: 20 }}>
+                😐
+                <span style={{ fontSize: '1rem' }}>Neutral</span>
+            </Button>
+            <Button value="D" style={{ flexGrow: 1, flexDirection: 'column', fontSize: '2rem', marginLeft: 5, marginRight: 5, paddingTop: 20, paddingBottom: 20 }}>
+                😩
+                <span style={{ fontSize: '1rem' }}>Sad</span>
+            </Button>
             </ButtonGroup>
+            
         </DialogContent>
 
         <DialogActions>
