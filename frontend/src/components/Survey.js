@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import "./Survey.css"
+import { useNavigate } from "react-router-dom";
 
-export const Survey = () => {
-
+export const Survey = (props) => {
+  const {login, username} = props.status;
+  const navigate = useNavigate();
   const questions = [
     { 
       question: "How do you typically approach problem-solving or decision-making in your daily life or work?", 
@@ -86,15 +88,19 @@ export const Survey = () => {
   }
 
   const handleSubmit = async () => {
-    const response = await fetch(`http://lcoalhost:9897/add-survey`, {
+    const response = await fetch(`http://localhost:9897/add-survey`, {
       method: "POST", 
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(selectedAnswer)
+      body: JSON.stringify({ ...selectedAnswer, username: username})
     })
 
     const data = await response.json();
-
-    console.log(data);
+    if (data.message === "add succesfully") {
+      navigate("/goal-setting")
+    } else {
+      console.log(data)
+    }
+    
   }
 
   return (

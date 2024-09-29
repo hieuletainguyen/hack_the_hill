@@ -1,17 +1,26 @@
 import { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
-// import 'rsuite/dist/rsuite.min.css';
 
-export const GoalSetting = () => {
-
+export const GoalSetting = (props) => {
+    const {login, username} = props.status
     const [inputText, setInputText] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Submitted text: ", inputText)
+    const handleSubmit = async () => {
+      const response  = await fetch(`http://localhost:9897/add-goal`, {
+        method: "POST", 
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          email: username, 
+          goal: inputText
+        })
+      })
+
+      const data = await response.json();
+      if (data.message === "add successfully") {
         navigate("/plan");  
+      }
     };
 
 
@@ -34,7 +43,7 @@ export const GoalSetting = () => {
       >
         {/* Personalized greeting text */}
         <Typography variant="h6" sx={{ mb: 2 }}>
-          Hey marc, what bad habit are you trying to break today?
+          Hey, what bad habit are you trying to break today?
         </Typography>
 
         {/* Input field */}

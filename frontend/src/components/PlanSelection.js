@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PlanSelection = () => {
+export const PlanSelection = (props) => {
+  const {login, username} = props.status;
   const classes = useStyles();
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [plans, setPlans] = useState([]);
