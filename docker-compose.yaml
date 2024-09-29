@@ -1,0 +1,33 @@
+version: "3.8"
+
+services: 
+
+  frontend:
+    depends_on:
+      - backend
+    container_name: frontend
+    build: ./frontend
+    environment:
+      - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+    volumes:
+      - frontend-data:/frontend-app
+    ports:
+      - "3000:3000"
+
+
+  backend: 
+    container_name: backend
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - "9897:9897"
+    volumes:
+      - backend-data:/backend-app
+    environment:
+      - FRONTEND_URL=${FRONTEND_URL}
+
+
+
+volumes: 
+  backend-data:
+  frontend-data:
