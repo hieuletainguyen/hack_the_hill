@@ -18,7 +18,7 @@ const getPlans = async (req, res) => {
             return res.status(400).json({message: "Error during query the survey"});
         }
         const result = generatePlan(request, data.Item)
-        return res.json({message: "success", result: result})
+        return res.json({message: "success", plans: result.plans})
     })
 }
 
