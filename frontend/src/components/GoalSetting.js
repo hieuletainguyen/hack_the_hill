@@ -19,9 +19,8 @@ export const GoalSetting = (props) => {
 
       const data = await response.json();
       console.log(data);
-      if (data.message === "add successfully") {
-        navigate("/plan");  
-      }
+      navigate("/plan");  
+      
     };
 
 
@@ -81,7 +80,7 @@ export const GoalSetting = (props) => {
 
         {/* Submit button */}
         <Box display="flex" justifyContent="flex-end">
-          <Button type="submit" variant="contained" onClick={handleSubmit}>
+          <Button  variant="contained" onClick={handleSubmit}>
             Submit
           </Button>
         </Box>
