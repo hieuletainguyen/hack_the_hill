@@ -1,9 +1,76 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Paper, Slide, Fade, Zoom } from '@mui/material';
 import Typewriter from './effect/TypeWriter.js';
+import Cookies from "js-cookie"
+import { useNavigate } from "react-router-dom";
 
-export const LoginSignup = () => {
+export const LoginSignup = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password1, setPassword1] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSignIn = async () => {
+    const response = await fetch(`http://localhost:9897/auth`, {
+      method: "POST", 
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        email: email, 
+        password: password
+      })
+    })
+
+    const data = await response.json();
+
+    if (data.message === "success") {
+      props.setStatus({
+        ...props.status,
+        login: true, 
+        username: email
+      })
+
+      Cookies.set("TOKENS", data.token, {expires: 1});
+      console.log(data)
+      if (Object.keys(data.data) === 0){
+        navigate("/survey")
+      } else {
+        navigate("/home")
+      }
+      
+    } else if(data.message === "Invalid email or password") {
+      window.alert("Incorrect password or email");
+
+  } else {
+      console.log(data);
+  }
+
+    console.log(data);
+  }
+
+  const handleSignUp = async() => {
+    if (password1 !== password2) {
+      alert("Both your password are not correct")
+      return -1
+    }
+    const response = await fetch(`http://localhost:9897/add-account`, {
+      method: "POST", 
+      headers: {"Content-Type": "application/json"}, 
+      body: JSON.stringify({
+        email: email, 
+        password: password1
+      })
+    })
+
+    const data = await response.json();
+    console.log(data);
+    if (data.message === "add successfully"){
+      navigate('/signup')
+    }
+
+  }
+
   const handleToggle = () => {
     setIsSignUp((prev) => !prev);
   };
@@ -12,14 +79,13 @@ export const LoginSignup = () => {
     <Box 
       sx={{
         display: 'flex', 
-        flexDirection: 'column', // Set flexDirection to column to stack elements
+        flexDirection: 'column', 
         justifyContent: 'center', 
         alignItems: 'center', 
         minHeight: '100vh',
         backgroundColor: '#f5f5f5',
       }}
     >
-      {/* App Name */}
       <Zoom in timeout={{ enter: 500 }}>
         <Typography 
         
@@ -69,9 +135,9 @@ export const LoginSignup = () => {
               <Typography variant="h4" gutterBottom>
                 Sign In
               </Typography>
-              <TextField label="Email" variant="outlined" fullWidth margin="normal" />
-              <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" />
-              <Button variant="contained" color="primary" fullWidth>
+              <TextField label="Email" variant="outlined" fullWidth margin="normal" onChange={(e) => setEmail(e.target.value)} />
+              <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" onChange={(e) => setPassword(e.target.value)}/>
+              <Button variant="contained" color="primary" fullWidth onClick={handleSignIn}>
                 Sign In
               </Button>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
@@ -99,10 +165,10 @@ export const LoginSignup = () => {
               <Typography variant="h4" gutterBottom>
                 Sign Up
               </Typography>
-              <TextField label="Email" variant="outlined" fullWidth margin="normal" />
-              <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" />
-              <TextField label="Confirm Password" type="password" variant="outlined" fullWidth margin="normal" />
-              <Button variant="contained" color="primary" fullWidth>
+              <TextField label="Email" variant="outlined" fullWidth margin="normal" onChange={(e) => setEmail(e.target.value)} />
+              <TextField label="Password" type="password" variant="outlined" fullWidth margin="normal" onChange={(e) => setPassword1(e.target.value)}/>
+              <TextField label="Confirm Password" type="password" variant="outlined" fullWidth margin="normal" onChange={(e) => setPassword2(e.target.value)}/>
+              <Button variant="contained" color="primary" fullWidth onClick={handleSignUp}>
                 Sign Up
               </Button>
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>

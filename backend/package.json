@@ -23,6 +23,7 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "~1.9.1",
+    "openai": "^4.65.0",
     "react-router-dom": "^6.26.2",
     "rsuite": "^5.71.0"
   }

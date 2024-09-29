@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PlanSelection = () => {
+export const PlanSelection = (props) => {
+  const {login, username} = props.status;
   const classes = useStyles();
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [plans, setPlans] = useState([]);
@@ -45,8 +46,7 @@ export const PlanSelection = () => {
 
     axios.get("/get-plans", {
       params: {
-        email: 'user@example.com', // Update email if necessary
-        request: 'plan_selection'
+        email: username, 
       }
     })
     .then((response) => {
@@ -67,9 +67,9 @@ export const PlanSelection = () => {
       
       // Send chosen plan to the backend
       axios.post("/chosen-plan", {
-        email: 'user@example.com', // Update email if necessary
+        email: username, // Update email if necessary
         plan: chosenPlan.title,
-        request: 'plan_selection'
+        description: chosenPlan.description
       })
       .then((response) => {
         alert(`Plan chosen: ${chosenPlan.title}`);

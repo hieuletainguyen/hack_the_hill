@@ -8,6 +8,7 @@ const port = 9897;
 const account_routes = require("./routes/account_route");
 const survey_routes = require("./routes/survey_route")
 const plan_routes = require("./routes/plan_route")
+const goal_routes = require("./routes/goal_route")
 
 var corsOptions = {
   origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
@@ -18,6 +19,7 @@ var corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions))
 app.use(account_routes)
+app.use(goal_routes)
 app.use(survey_routes)
 app.use(plan_routes)
 
