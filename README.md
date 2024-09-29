@@ -100,6 +100,15 @@ Data Storage: All user data (survey responses, calendar events) is securely stor
 ### Home Page
 ![Screenshot 2024-09-29 032955](https://github.com/user-attachments/assets/2d1c454f-daf6-49d9-b8f8-2763ed15006f)
 
+
+## DEVPOST
+
+If you want further information, you can checkout our devpost
+
+```
+https://devpost.com/software/habitbuster
+```
+
 <h2 align="center"> &nbsp;Some Tools We Have Used and Learned In This Project</h2>
 <p align="center">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="vscode" width="45" height="45"/>
