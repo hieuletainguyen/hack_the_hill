@@ -37,9 +37,13 @@ export const Survey = (props) => {
   };
 
   const handleSubmit = () => {
-    axios.post('/add-survey', selectedAnswer)
+
+    axios.post('/add-survey', {...selectedAnswer, username: username})
     .then((response) => {
       console.log(response.data); // Handle the response data
+      if(response.data.message === "add succesfully"){
+        navigate('/goal-setting')
+      }
     })
     .catch((error) => {
       console.error('Error submitting survey:', error); // Handle any error
@@ -85,12 +89,6 @@ export const Survey = (props) => {
           Previous
         </button>
 
-        <button
-        className="submit-button"
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
 
         {currentQuestionIndex < questions.length - 1 ? (
           <button

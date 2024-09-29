@@ -60,7 +60,7 @@ export const PlanSelection = (props) => {
     .then((response) => {
       const data = response.data;
       console.log(data);
-      setPlans(data.result); // Assuming `data.result` contains the list of plans
+      setPlans(data.plans); // Assuming `data.result` contains the list of plans
     })
     .catch((error) => {
       console.error("Error fetching plans:", error);
@@ -75,17 +75,17 @@ export const PlanSelection = (props) => {
 
   const handleContinue = () => {
     if (selectedPlan !== null) {
-      const chosenPlan = Object.values(plans).find(plan => plan.goal === selectedPlan);
+      const chosenPlan = plans.find(plan => plan.id === selectedPlan);
       
       // Send chosen plan to the backend
       axios.post("/chosen-plan", {
         email: username, // Update email if necessary
-        goal: chosenPlan.goal,
-        duration: chosenPlan.duration,
-        weeks: chosenPlan.weeks
+        title: chosenPlan.title,
+        description: chosenPlan.description,
+        planDetails: chosenPlan.planDetails
       })
       .then((response) => {
-        alert(`Plan chosen: ${chosenPlan.goal}`);
+        alert(`Plan chosen: ${chosenPlan.title}`);
         navigate("/home")
       })
       .catch((error) => {
@@ -107,7 +107,7 @@ export const PlanSelection = (props) => {
       </Typography>
       
       <Grid container className={classes.cardContainer}>
-        {plans.map((plan) => (
+        {plans.length > 0 && plans.map((plan) => (
           <Grid item key={plan.id}>
             <PlanItem
               plan={plan}

@@ -38,15 +38,15 @@ const getPlans = async (req, res) => {
 }
 
 const chosenPlan = async (req, res) => {
-    const { email, goal, duration, weeks } = req.body;
+    const { email, title, description, planDetails } = req.body;
     
     const params = {
         TableName: "hack_the_hill_user_plan",
         Item: {
             username: { S: email },
-            goal: {S: goal}, 
-            duration: {S: duration},
-            weeks: {S: `${weeks}`}
+            title: {S: title}, 
+            description: {S: description},
+            planDetails: {S: `${planDetails}`}
         },
     }
 
