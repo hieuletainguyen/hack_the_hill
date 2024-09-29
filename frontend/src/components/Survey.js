@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import {Zoom} from '@mui/material';
 import "./Survey.css";
 import questions from './helpers/SurveyQuestions';
 import axios from '../axios'
+import { useNavigate } from "react-router-dom";
 
-export const Survey = () => {
+export const Survey = (props) => {
+  const {login, username} = props.status;
+  const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState({
     answer1: '', 
@@ -15,7 +19,7 @@ export const Survey = () => {
   });
 
   // Handle option selection for checkboxes (only one selected allowed)
-  const handleOptionChange = (questionIndex, option) => {
+ const handleOptionChange = (questionIndex, option) => {
     setSelectedAnswer(prevState => ({
       ...prevState,
       [`answer${questionIndex + 1}`]: prevState[`answer${questionIndex + 1}`] === option ? '' : option
@@ -43,7 +47,9 @@ export const Survey = () => {
   };
 
   return (
+    <div className="survey-box">
     <div className="main-survey-container">
+      <Zoom in timeout={600}>
       <div className="survey-header">
         <h2>Survey</h2>
         <p>Please answer the questions one at a time.</p>
@@ -64,6 +70,7 @@ export const Survey = () => {
               />
               <label className="option-label">{option}</label>
             </div>
+            
           ))}
         </div>
       </div>
@@ -103,6 +110,7 @@ export const Survey = () => {
           </button>
         )}
       </div>
+    </div>
     </div>
   );
 };

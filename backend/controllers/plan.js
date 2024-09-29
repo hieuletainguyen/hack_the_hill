@@ -4,7 +4,7 @@ const AWS = require("aws-sdk");
 AWS.config.update({ region: "us-east-2"})
 
 const getPlans = async (req, res) => {
-    const {email, request} = req.query;
+    const {email} = req.query;
 
     const params = {
         TableName: "hack_the_hill_survey",
@@ -17,20 +17,36 @@ const getPlans = async (req, res) => {
         if (err) {
             return res.status(400).json({message: "Error during query the survey"});
         }
-        const result = generatePlan(request, data.Item)
-        return res.json({message: "success", plans: result.plans})
+        
+        const goalParams = {
+            TableName: "hack_the_hill_goal", 
+            Key: {
+                username: {S: email}
+            }
+        }
+        
+        dynamoDB.getItem(goalParams, async (err1, data1) => {
+            if (err1) {
+                return res.status(400).json({message: "Error during get the goal for the plan"});
+            }
+            const result = await generatePlan(data1.Item.S, data.Item)
+            
+            return res.json({message: "success", plans: result.plans});
+
+        })
     })
 }
 
 const chosenPlan = async (req, res) => {
-    const { email, plan, request } = req.body;
+    const { email, goal, duration, weeks } = req.body;
     
     const params = {
         TableName: "hack_the_hill_user_plan",
         Item: {
             username: { S: email },
-            request: {S: request}, 
-            plan: {S: plan}
+            goal: {S: goal}, 
+            duration: {S: duration},
+            weeks: {S: `${weeks}`}
         },
     }
 

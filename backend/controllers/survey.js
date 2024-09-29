@@ -25,9 +25,9 @@ const saveRecord = async (req, res) => {
 
     dynamoDB.putItem(params, (err, data) => {
         if (err) {
-            return res.json({message: "Error during adding survey"})
+            return res.json({message: "Error during adding survey", error: err})
         } else {
-            return res.status(200).json({ message: "add succesfully"})
+            return res.status(200).json({ message: "add succesfully", data: data})
         }
     })
 

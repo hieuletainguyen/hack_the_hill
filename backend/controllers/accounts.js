@@ -97,10 +97,24 @@ const authorization = async (req, res) => {
                 if (err) {
                     return res.json({message: "Error during adding"})
                 } else {
-                    return res.status(200).json({ message: "add succesfully"})
+
+                    var additionalParams = {
+                        TableName: "hack_the_hill_survey", 
+                        Key: {
+                            username: {S: email}
+                        }
+                    }
+
+                    dynamoDB.getItem(additionalParams, (err1, data1) => {
+                        if (err1) {
+                            return res.json({message: "Error during finding survey for adding"})
+                        }
+                        
+                        return res.status(200).json({message: "success", token: token, data: data1})
+                    })
                 }
             })
-            return res.status(200).json({message: "success", token: token})
+            
         } else {
             return res.status(401).json({message: "Invalid email or password"})
         }

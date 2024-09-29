@@ -1,4 +1,15 @@
-/* Survey Container */
+@keyframes slideIn {
+    0% {
+      transform: translateX(-100%); /* Start off-screen to the left */
+      opacity: 0; /* Start invisible */
+    }
+    100% {
+      transform: translateX(0); /* End at original position */
+      opacity: 1; /* End fully visible */
+    }
+  }
+  
+
 .main-survey-container {
     max-width: 600px;
     margin: 40px auto;

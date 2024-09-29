@@ -31,7 +31,6 @@ function generatePlanPrompt(request, behavior) {
     }]
     `;
     
-
     return prompt
 }
 

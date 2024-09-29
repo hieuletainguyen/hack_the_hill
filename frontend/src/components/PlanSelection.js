@@ -6,6 +6,7 @@ import { plans as samplePlans } from './helpers/SampleObjects';
 import PlanItem from './PlanSelectionItem'; // Import the PlanItem component
 
 const useStyles = makeStyles((theme) => ({
+
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -43,10 +44,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PlanSelection = () => {
+export const PlanSelection = (props) => {
+  const {login, username} = props.status;
   const classes = useStyles();
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState({});
+  const navigate = useNavigate();
 
   // Fetch available plans from the backend
   useEffect(() => {

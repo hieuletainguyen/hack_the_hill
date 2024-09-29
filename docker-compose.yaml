@@ -16,8 +16,6 @@ services:
 
 
   backend: 
-    depends_on:
-      - mysql-container
     container_name: backend
     build: ./backend
     restart: unless-stopped
