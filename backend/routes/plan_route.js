@@ -11,8 +11,6 @@ router.get("/get-plans",
 
 router.post("/chosen-plan",
     body('email').isEmail(),
-    body('plan').not().isEmpty(),
-    body("description").not().isEmpty(),
     plan.chosenPlan
 )
 

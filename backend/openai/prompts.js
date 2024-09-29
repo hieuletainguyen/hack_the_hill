@@ -11,6 +11,7 @@ function generatePlanPrompt(request, behavior) {
     {
         "goal": "Learn JavaScript from basics to intermediate level in 2 months",
         "duration": "8 weeks",
+        "description": "learning in detail something",
         "weeks": [
         {
             "week": 1,

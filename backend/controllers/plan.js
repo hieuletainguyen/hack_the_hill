@@ -25,11 +25,12 @@ const getPlans = async (req, res) => {
             }
         }
         
-        dynamoDB.getItem(goalParams, (err1, data1) => {
+        dynamoDB.getItem(goalParams, async (err1, data1) => {
             if (err1) {
                 return res.status(400).json({message: "Error during get the goal for the plan"});
             }
-            const result = generatePlan(data1.Item.S, data.Item)
+            const result = await generatePlan(data1.Item.S, data.Item)
+            
             return res.json({message: "success", result: result});
 
         })
@@ -37,14 +38,15 @@ const getPlans = async (req, res) => {
 }
 
 const chosenPlan = async (req, res) => {
-    const { email, plan, description } = req.body;
+    const { email, goal, duration, weeks } = req.body;
     
     const params = {
         TableName: "hack_the_hill_user_plan",
         Item: {
             username: { S: email },
-            description: {S: description}, 
-            plan: {S: plan}
+            goal: {S: goal}, 
+            duration: {S: duration},
+            weeks: {S: `${weeks}`}
         },
     }
 

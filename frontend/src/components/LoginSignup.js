@@ -65,8 +65,9 @@ export const LoginSignup = (props) => {
 
     const data = await response.json();
     console.log(data);
-    if (data.message === "add successfully"){
-      navigate('/signup')
+    if (data.message === "add succesfully"){
+      alert("Your account is registered successfully")
+      navigate(0)
     }
 
   }

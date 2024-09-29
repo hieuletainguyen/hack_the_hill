@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, Button, CardActionArea } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import axios from './axios';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
+
   root: {
-    height: '100vh', // Full viewport height
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyItems: 'center',
+    alignItems: 'center'
   },
   cardContainer: {
     width: '100%', // Takes 70% of the width
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-around', // Space around the cards
   },
   card: {
-    width: '100%', // Each card takes 30% of the container width
+    width: '80%', // Each card takes 30% of the container width
     height: '70vh', // Card height is 70% of viewport height
     border: '2px solid transparent',
     '&.selected': {
@@ -33,7 +34,8 @@ export const PlanSelection = (props) => {
   const {login, username} = props.status;
   const classes = useStyles();
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState({});
+  const navigate = useNavigate();
 
   // Fetch available plans from the backend
   useEffect(() => {
@@ -43,18 +45,19 @@ export const PlanSelection = (props) => {
     //   { id: 2, title: 'Medium', description: 'This is the standard plan.' },
     //   { id: 3, title: 'Hard', description: 'This is the premium plan.' },
     // ])
+    const get_plans = async () => {
+      const response = await fetch(`http://localhost:9897/get-plans?email=${username}`)
 
-    axios.get("/get-plans", {
-      params: {
-        email: username, 
-      }
-    })
-    .then((response) => {
-      setPlans(response.data.plans); // Assuming response.data.plans contains the list of plans
-    })
-    .catch((error) => {
-      console.error("Error fetching plans:", error);
-    });
+      const data = await response.json();
+      console.log(data)
+      console.log(data.result)
+      setPlans(data.result);
+
+    }
+
+    get_plans();
+    
+
   }, []);
 
   const handleSelectPlan = (id) => {
@@ -63,16 +66,18 @@ export const PlanSelection = (props) => {
 
   const handleContinue = () => {
     if (selectedPlan !== null) {
-      const chosenPlan = plans.find(plan => plan.id === selectedPlan);
+      const chosenPlan = Object.values(plans).find(plan => plan.goal === selectedPlan);
       
       // Send chosen plan to the backend
       axios.post("/chosen-plan", {
         email: username, // Update email if necessary
-        plan: chosenPlan.title,
-        description: chosenPlan.description
+        goal: chosenPlan.goal,
+        duration: chosenPlan.duration,
+        weeks: chosenPlan.weeks
       })
       .then((response) => {
-        alert(`Plan chosen: ${chosenPlan.title}`);
+        alert(`Plan chosen: ${chosenPlan.goal}`);
+        navigate("/home")
       })
       .catch((error) => {
         console.error("Error selecting plan:", error);
@@ -83,16 +88,16 @@ export const PlanSelection = (props) => {
   return (
     <div className={classes.root}>
       <Grid container className={classes.cardContainer}>
-        {plans.map((plan) => (
-          <Grid item key={plan.id}>
+        {Object.keys(plans).length > 0 && Object.values(plans).map((plan, index) => (
+          <Grid item key={index}>
             <Card
-              className={`${classes.card} ${selectedPlan === plan.id ? 'selected' : ''}`}
-              onClick={() => handleSelectPlan(plan.id)}
+              className={`${classes.card} ${selectedPlan === plan.goal ? 'selected' : ''}`}
+              onClick={() => handleSelectPlan(plan.goal)}
             >
               <CardActionArea>
                 <CardContent>
                   <Typography variant="h5" component="div" gutterBottom>
-                    {plan.title}
+                    {plan.goal}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
                     {plan.description}

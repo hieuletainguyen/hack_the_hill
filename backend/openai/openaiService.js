@@ -46,6 +46,7 @@ async function generatePlan(request, behavior) {
     const parsedPlan = JSON.parse(planString);
 
     // Use the parsed JSON object
+    console.log("PLAN");
     console.log(parsedPlan);
 
     return parsedPlan;
