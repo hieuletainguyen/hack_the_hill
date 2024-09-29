@@ -38,7 +38,7 @@ function getBackgroundClass(roll) {
     }
 }
 
-export const Home = () => {
+export default function Home ()  {
   
     const [date, setDate] = useState(new Date());
     const displayReflexion = () => {

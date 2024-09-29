@@ -33,7 +33,7 @@ export const LoginSignup = (props) => {
 
       Cookies.set("TOKENS", data.token, {expires: 1});
       console.log(data)
-      if (Object.keys(data.data) === 0){
+      if (Object.keys(data.data).length === 0){
         navigate("/survey")
       } else {
         navigate("/home")
