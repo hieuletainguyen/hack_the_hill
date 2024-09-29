@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, CardContent, Typography, Button, CardActionArea } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import axios from '../axios';
+import axios from './axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
