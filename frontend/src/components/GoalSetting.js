@@ -8,7 +8,7 @@ export const GoalSetting = (props) => {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-      const response  = await fetch(`${process.env.REACT_APP_BACKEND_URL}/add-goal`, {
+      const response  = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:9897"}/add-goal`, {
         method: "POST", 
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({

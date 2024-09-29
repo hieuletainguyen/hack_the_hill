@@ -89,7 +89,7 @@ export const Survey = (props) => {
   }
 
   const handleSubmit = async () => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/add-survey`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:9897"}/add-survey`, {
       method: "POST", 
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ ...selectedAnswer, username: username})

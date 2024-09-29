@@ -71,7 +71,7 @@ export default function Home ()  {
             }</style>
        
             <VStack>
-                <Typography variant="h3" gutterBottom>Hey there, Marc!</Typography>
+                <Typography variant="h3" gutterBottom>Hey there!</Typography>
                 <Typography variant='h6'>Sunday, September 29, 2024 </Typography>
                 <Box 
                     sx={{ width: '100%' }}>

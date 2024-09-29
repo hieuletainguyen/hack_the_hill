@@ -13,7 +13,7 @@ export const LoginSignup = (props) => {
   const navigate = useNavigate();
 
   const handleSignIn = async () => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:9897"}/auth`, {
       method: "POST", 
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
@@ -54,7 +54,7 @@ export const LoginSignup = (props) => {
       alert("Both your password are not correct")
       return -1
     }
-    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/add-account`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:9897"}/add-account`, {
       method: "POST", 
       headers: {"Content-Type": "application/json"}, 
       body: JSON.stringify({

@@ -46,7 +46,7 @@ export const PlanSelection = (props) => {
     //   { id: 3, title: 'Hard', description: 'This is the premium plan.' },
     // ])
     const get_plans = async () => {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/get-plans?email=${username}`)
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL || "http://localhost:9897"}/get-plans?email=${username}`)
 
       const data = await response.json();
       console.log(data)
