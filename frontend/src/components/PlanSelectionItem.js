@@ -88,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginBottom: theme.spacing(1),
   },
+  selectedCard: {
+    borderColor: theme.palette.primary.main, // Highlight border if selected
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.25)', // Stronger shadow for selected card
+    transform: 'scale(1.02)', // Scale up slightly when selected
+  },
 }));
 
 const PlanItem = ({ plan, selectedPlan, handleSelectPlan }) => {
@@ -132,7 +137,8 @@ const PlanItem = ({ plan, selectedPlan, handleSelectPlan }) => {
       onClick={() => handleSelectPlan(plan.id)}
     >
       <CardActionArea>
-        <CardContent className={`${classes.card} ${getBackgroundClass()}`}>
+      
+        <CardContent className={`${classes.card} ${getBackgroundClass()} ${selectedPlan === plan.id ? classes.selectedCard : ''}`}>
           <div className={classes.trophiesContainer}>
             {renderTrophies()}
             <Typography variant="h5" component="div" className={classes.cardHeader}>
