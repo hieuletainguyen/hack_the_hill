@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Zoom} from '@mui/material';
 import "./Survey.css";
 import questions from './helpers/SurveyQuestions';
-import axios from '../axios'
+import axios from './axios'
 import { useNavigate } from "react-router-dom";
 
 export const Survey = (props) => {
@@ -19,7 +19,7 @@ export const Survey = (props) => {
   });
 
   // Handle option selection for checkboxes (only one selected allowed)
- const handleOptionChange = (questionIndex, option) => {
+  const handleOptionChange = (questionIndex, option) => {
     setSelectedAnswer(prevState => ({
       ...prevState,
       [`answer${questionIndex + 1}`]: prevState[`answer${questionIndex + 1}`] === option ? '' : option
@@ -49,12 +49,12 @@ export const Survey = (props) => {
   return (
     <div className="survey-box">
     <div className="main-survey-container">
-      <Zoom in timeout={600}>
+    <Zoom in timeout={600}>
       <div className="survey-header">
         <h2>Survey</h2>
         <p>Please answer the questions one at a time.</p>
       </div>
-
+    </Zoom>
       {/* Display only the current question with animation */}
       <div className="question-container">
         <p className="question-title">{questions[currentQuestionIndex].question}</p>
@@ -70,7 +70,7 @@ export const Survey = (props) => {
               />
               <label className="option-label">{option}</label>
             </div>
-            
+
           ))}
         </div>
       </div>
@@ -109,8 +109,8 @@ export const Survey = (props) => {
             Submit
           </button>
         )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'; 
 import { Grid, Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import axios from '../axios';
+import axios from './axios';
 import { plans as samplePlans } from './helpers/SampleObjects';
 import PlanItem from './PlanSelectionItem'; // Import the PlanItem component
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -48,27 +48,26 @@ export const PlanSelection = (props) => {
   const {login, username} = props.status;
   const classes = useStyles();
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [plans, setPlans] = useState({});
+  const [plans, setPlans] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch available plans from the backend
   useEffect(() => {
-    // For testing purposes
-    setPlans(samplePlans);
-    // Uncomment this to use real backend fetching
-    // axios.get("/get-plans", {
-    //   params: {
-    //     email: 'user@example.com', // Update email if necessary
-    //     request: 'plan_selection'
-    //   }
-    // })
-    // .then((response) => {
-    //   setPlans(response.data.plans); // Assuming response.data.plans contains the list of plans
-    // })
-    // .catch((error) => {
-    //   console.error("Error fetching plans:", error);
-    // });
-  }, []);
+    axios.get("/get-plans", {
+      params: {
+        email: username, // Assuming username is available
+      }
+    })
+    .then((response) => {
+      const data = response.data;
+      console.log(data);
+      setPlans(data.result); // Assuming `data.result` contains the list of plans
+    })
+    .catch((error) => {
+      console.error("Error fetching plans:", error);
+    });
+  }, [username]);
+  
+  
 
   const handleSelectPlan = (id) => {
     setSelectedPlan(id);
@@ -76,19 +75,22 @@ export const PlanSelection = (props) => {
 
   const handleContinue = () => {
     if (selectedPlan !== null) {
-      const chosenPlan = plans.find((plan) => plan.id === selectedPlan);
-      axios
-        .post("/chosen-plan", {
-          email: 'user@example.com',
-          plan: chosenPlan.title,
-          request: 'plan_selection',
-        })
-        .then((response) => {
-          alert(`Plan chosen: ${chosenPlan.title}`);
-        })
-        .catch((error) => {
-          console.error("Error selecting plan:", error);
-        });
+      const chosenPlan = Object.values(plans).find(plan => plan.goal === selectedPlan);
+      
+      // Send chosen plan to the backend
+      axios.post("/chosen-plan", {
+        email: username, // Update email if necessary
+        goal: chosenPlan.goal,
+        duration: chosenPlan.duration,
+        weeks: chosenPlan.weeks
+      })
+      .then((response) => {
+        alert(`Plan chosen: ${chosenPlan.goal}`);
+        navigate("/home")
+      })
+      .catch((error) => {
+        console.error("Error selecting plan:", error);
+      });
     }
   };
 
