@@ -5,7 +5,6 @@ import { GoalSetting } from "./components/GoalSetting";
 import { PlanSelection } from "./components/PlanSelection";
 import {LoginSignup} from './components/LoginSignup';
 import {Survey} from './components/Survey'
-// import { Login } from "./Login";
 
 function App() {
 
