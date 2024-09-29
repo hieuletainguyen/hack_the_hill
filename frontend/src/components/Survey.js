@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {Zoom} from '@mui/material';
 import "./Survey.css"
 import { useNavigate } from "react-router-dom";
 
@@ -104,13 +105,20 @@ export const Survey = (props) => {
   }
 
   return (
+    <div className="survey-box">
     <div className="main-survey-container">
+      <Zoom in timeout={600}>
       <div className="survey-header">
           SURVEY
       </div>
+      </Zoom>
+      
       {questions.map((q, questionIndex) => (
+        
         <div key={questionIndex} className="head-survey-container">
-          <p>{q.question}</p>
+
+          <p className="zoom">{q.question}</p>
+          
           {q.options.map((option, optionIndex) => (
             <div key={optionIndex} className="survey-option">
               <input
@@ -122,11 +130,13 @@ export const Survey = (props) => {
               />
               <label>{option}</label>
             </div>
+            
           ))}
-        </div>
+          </div>
       ))}
 
       <button className="submit-button" onClick={handleSubmit} disabled={checkingAllQuestionAnswered()}>SUBMIT</button>
+    </div>
     </div>
   );
 };

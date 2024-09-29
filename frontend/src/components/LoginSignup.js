@@ -98,7 +98,7 @@ export const LoginSignup = (props) => {
             color: '#333',
           }}
         >
-          AppName
+          Bad Habit Buster
         </Typography>
       </Zoom>
       <Paper 
@@ -124,6 +124,7 @@ export const LoginSignup = (props) => {
                 backgroundColor: '#e3f2fd', 
                 height: '94%', 
                 display: 'flex', 
+                alignItems: 'center',
                 flexDirection: 'column',
                 padding: 2,
                 borderRadius: '10px',
@@ -151,6 +152,7 @@ export const LoginSignup = (props) => {
               sx={{   
                 position: 'absolute',
                 backgroundColor: '#e3f2fd', 
+                alignItems: 'center',
                 height: '94%', 
                 display: 'flex', 
                 flexDirection: 'column',
@@ -189,11 +191,11 @@ export const LoginSignup = (props) => {
           
           <Fade in>
             <Typography variant="h5" gutterBottom>
-              {isSignUp ? <Typewriter key="signup" text="Welcome To AppName!" delay={100} />  : <Typewriter key="signin" text="Welcome Back!" delay={100} />} 
+              {isSignUp ? <Typewriter key="signup" text="Welcome To Bad Habit Buster!" delay={100} />  : <Typewriter key="signin" text="Welcome Back!" delay={100} />} 
             </Typography>
           </Fade>
           <Fade in>
-            <Typography variant="body4" gutterBottom align="justify">
+            <Typography variant="body4" gutterBottom align="justify" sx={{ lineHeight: 2 }} fontSize={20}>
               {isSignUp
                 ? <Typewriter key="signup-text" text="Your trusted guide to breaking bad habits and unlocking the best version of yourself. Let’s take the first step together towards a healthier, happier you." delay={25} />
                 : <Typewriter key="signin-text" text="Please enter your credentials to access your account. If you don’t have an account yet, consider signing up for new features and updates!" delay={25} />}
