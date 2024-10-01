@@ -58,9 +58,17 @@ npm install
 
 ### **3. Set up environment variables**
 Create an .env file in the backend directory with the following keys:
+```
+ACCESS_KEY_ID=
+SECRET_ACCESS_KEY=
+REGION=
+OPENAI_API_KEY=
+```
 
+### **4. Create and set up tables in AWS DynamoDB as the picture**
+![Screenshot 2024-10-01 181714](https://github.com/user-attachments/assets/993e70c6-d752-41e7-a9f1-4e0ff21f9faa)
 
-### **4. Run the app**
+### **5. Run the app**
 Run both the frontend and backend:
 ```bash
 # In the frontend directory
