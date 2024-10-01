@@ -7,7 +7,7 @@ const ErrorHandler = require("./errorHandler")
 dotenv.config();
 
 const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY ,
 });
 
 // Function to generate a tailored plan based on user input

@@ -184,14 +184,16 @@ function Reflexion({ date }) {
                     style={{ width: 400 }}
                 >
                     <Text size="xxl">For Today...</Text>
-                    <Text size="xl">Run 10K at a 6:00 min/km pace</Text>
-                    <Text wrap>To run a 10K at a 6:00 min/km pace, start with a proper warm-up, including light jogging and dynamic
-                         stretches. During the run, keep a steady pace, using a running app or watch to monitor your splits. Focus
-                          on consistent breathing and form, avoiding early fatigue by not starting too fast. </Text>
+                    <Text size="xl">Quit Smoking</Text>
+                    <Text wrap>To quit smoking, start each day with a clear intention to stay smoke-free. 
+                        Practice mindfulness when cravings arise, focusing on deep breathing and keeping your hands busy. 
+                        Stay active and engage in activities that distract you from the urge to smoke.</Text>
 
                     <Text size="xxl">Things to keep in mind...</Text>
-                    <Text wrap>Hydrate before the run, and use mental cues to stay focused, especially in the last kilometers. Finish 
-                        with a cool-down and some light stretching.</Text>
+                    <Text wrap>Drink water throughout the day to stay hydrated and flush toxins. 
+                        Remind yourself why you’re quitting and celebrate small victories, like going a day or even an hour without smoking.
+                        Stay positive, and take it one day at a time.</Text>
+
                     <Button
                         style={{
                             color: "white", 

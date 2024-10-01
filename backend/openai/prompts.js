@@ -2,13 +2,13 @@ function generatePlanPrompt(request, behavior) {
     // Prepare the request for OpenAI GPT-4
     const prompt = `
     The user wants to break a bad habit. They provided the following context:
-    Request: ${request}
+    what they want to break: ${request}
     Behavior questions and chosen answers: ${JSON.stringify(behavior)}
     Based on this, analyze the user's personality and skill set. Generate three tailored plans (Easy, Medium, Hard) for the user to choose from.
     
     Please return the plans in the following JSON format that includes an id, title, description, and plan details. The description should be a brief summary of the goal for each plan. Each plan should have goals, duration, weekly focus, topics, resources, and projects.
     
-    Expected JSON format:
+    Expected JSON format and this is just an example:
     [
       {
         "id": 1,
@@ -30,7 +30,7 @@ function generatePlanPrompt(request, behavior) {
         }
     }]
     `;
-    
+    console.log(prompt)
     return prompt
 }
 

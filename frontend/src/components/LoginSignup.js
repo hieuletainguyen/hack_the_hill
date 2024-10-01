@@ -25,11 +25,13 @@ export const LoginSignup = (props) => {
     const data = await response.json();
 
     if (data.message === "success") {
+      debugger
       props.setStatus({
-        ...props.status,
         login: true, 
         username: email
       })
+
+      console.log(data)
 
       Cookies.set("TOKENS", data.token, {expires: 1});
       console.log(data)
