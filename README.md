@@ -1,4 +1,4 @@
-# Hack The Hill 2 - Break Bad Cycle
+# Hack The Hill 2 - Bad Habit Buster
 
 # 🚀 Breaking Bad Habits - Transform Your Life 🌟
 
